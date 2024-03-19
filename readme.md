@@ -12,7 +12,7 @@ Windows 10/11のシステムフォントを強制的に変更する強力なツ�
 3. 依存関係を以下の手順に従ってインストールします．
 Powershellまたはコマンドプロンプトを開いて
 ```cmd
-pip install customtkinter tkinter fontTools
+pip install customtkinter fontTools
 ```
 4. このリポジトリをダウンロード(clone)します．
 
