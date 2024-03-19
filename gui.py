@@ -8,6 +8,7 @@ class App(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.geometry("700x800")
+        self.title("System Font Changer for Windows 10/11")
 
         self.weight_ja=["Bold", "Semibold", "Regular", "Semilight", "Light"]
         self.weight_en=["Black", "Black Italic", "Bold", "Bold Italic", "Semibold","Semibold Italic", "Regular", "Italic", "Semilight","Semilight Italic" ,"Light", "Light Italic", "Variable"]
@@ -27,6 +28,7 @@ class App(ctk.CTk):
         self.tab.append(self.tabview.add("STEP 2"))
         self.tab.append(self.tabview.add("STEP 3"))
         self.tab.append(self.tabview.add("STEP 4"))
+        self.tab.append(self.tabview.add("ABOUT"))
         
         for i in range(5):
             self.label.append(ctk.CTkLabel(self.tab[1], text=self.weight_ja[i], fg_color="transparent"))
@@ -56,8 +58,10 @@ class App(ctk.CTk):
         
         self.button3 = ctk.CTkButton(self.tab[2], text="生成", command=self.run_segoe)
         self.button3.grid(row=14,column=0, padx=10, pady=20)
+        ctk.CTkLabel(self.tab[0], text="本プログラムを使用して生じたいかなる問題も作成者(@hirobon1690)は責任を負いません．", fg_color="transparent").pack(pady=10)
+        ctk.CTkLabel(self.tab[0], text="必ず大事なデータのバックアップ・復元ポイントを作成してから操作を行ってください．", fg_color="transparent").pack(pady=10)
         
-        self.label1 = ctk.CTkLabel(self.tab[0], text="バックアップを作成します．以下のボタンをクリックしてください", fg_color="transparent")
+        self.label1 = ctk.CTkLabel(self.tab[0], text="もとのフォントのバックアップを作成します．以下のボタンをクリックしてください", fg_color="transparent")
         self.label1.pack(pady=10)
         self.button4 = ctk.CTkButton(self.tab[0], text="バックアップ", command=self.backup)
         self.button4.pack(pady=10)
@@ -81,6 +85,10 @@ class App(ctk.CTk):
         ctk.CTkLabel(self.tab[3], text="outputフォルダにあるすべてのフォントを選択して「すべてのユーザーにインストール」してください", fg_color="transparent").pack(pady=10)
         ctk.CTkLabel(self.tab[3], text="上記の操作が完了後，再起動してください", fg_color="transparent").pack(pady=10)
         
+        ctk.CTkLabel(self.tab[4], text="System Font Changer for Windows 10/11", fg_color="transparent").pack(pady=10)
+        ctk.CTkLabel(self.tab[4], text="https://github.com/hirobon1690/System-Font-Changer-for-Windows10-11", fg_color="transparent").pack(pady=10)
+        ctk.CTkLabel(self.tab[4], text="Contact me on Twitter @hirobon1690", fg_color="transparent").pack(pady=10)
+        
     def open_file_dialog(self, i):
         print(i)
         filename = tkinter.filedialog.askopenfilename()
@@ -94,7 +102,8 @@ class App(ctk.CTk):
         subprocess.run(["C:\\Program Files (x86)\\FontForgeBuilds\\bin\\ffpython.exe", "main.py","./source/yugoth/Regular.ttf", self.entry[2].get(), "./output/YuGothicUI-Regular.ttf"])
         subprocess.run(["C:\\Program Files (x86)\\FontForgeBuilds\\bin\\ffpython.exe", "main.py","./source/yugoth/Semilight.ttf", self.entry[3].get(), "./output/YuGothicUI-Semilight.ttf"])
         subprocess.run(["C:\\Program Files (x86)\\FontForgeBuilds\\bin\\ffpython.exe", "main.py","./source/yugoth/Light.ttf", self.entry[4].get(), "./output/YuGothicUI-Light.ttf"])
-
+        print("done")
+        
     def run_segoe(self):
         subprocess.run(["C:\\Program Files (x86)\\FontForgeBuilds\\bin\\ffpython.exe", "main.py","./source/segoe/Black.ttf", self.entry[5].get(), "./output/SegoeUI-Black.ttf"])
         subprocess.run(["C:\\Program Files (x86)\\FontForgeBuilds\\bin\\ffpython.exe", "main.py","./source/segoe/BlackItalic.ttf", self.entry[6].get(), "./output/SegoeUI-BlackItalic.ttf"])
@@ -109,13 +118,14 @@ class App(ctk.CTk):
         subprocess.run(["C:\\Program Files (x86)\\FontForgeBuilds\\bin\\ffpython.exe", "main.py","./source/segoe/Light.ttf", self.entry[15].get(), "./output/SegoeUI-Light.ttf"])
         subprocess.run(["C:\\Program Files (x86)\\FontForgeBuilds\\bin\\ffpython.exe", "main.py","./source/segoe/LightItalic.ttf", self.entry[16].get(), "./output/SegoeUI-LightItalic.ttf"])
         # subprocess.run(["C:\\Program Files (x86)\\FontForgeBuilds\\bin\\ffpython.exe", "main.py","./source/segoe/Variable.ttf", self.entry[17].get(), "./output/SegoeUI-Variable.ttf"])
+        print("done")
         
     def backup(self):
         self.label2.configure(text="実行中")
         subprocess.run(["copy", "C:\\Windows\\Fonts\\segoeui*.ttf", ".\\backup\\segoeui\\"],shell=True)
         self.label2.configure(text="50%...")
         subprocess.run(["copy", "C:\\Windows\\Fonts\\YuGoth*.ttc", ".\\backup\\yugoth\\"],shell=True)
-        self.label2.configure(text="完了")
+        self.label2.configure(text="backupフォルダにバックアップが保存されたことを確認してください．")
     
     def ttc2ttf(self):
         self.label4.configure(text="0%...")
